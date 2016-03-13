@@ -12,7 +12,7 @@ var Walk = require('./lib/walk')
  *  @param {Object} stream input stream.
  *  @param {Function} [cb] callback function.
  *
- *  @returns the serializer stream.
+ *  @returns the deserializer stream.
  */
 function deserialize(stream, cb) {
   var deserializer = new Deserialize();

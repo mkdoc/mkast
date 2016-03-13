@@ -51,7 +51,7 @@ Deserialize line-delimited JSON to commonmark AST.
 When a callback function is given it is added as a listener for
 the error and eof events on the deserializer stream.
 
-Returns the serializer stream.
+Returns the deserializer stream.
 
 * `stream` Object input stream.
 * `cb` Function callback function.
