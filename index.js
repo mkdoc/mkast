@@ -3,25 +3,6 @@ var fs = require('fs')
   , Serialize = require('./lib/serialize');
 
 /**
- *  Load and parse file contents.
- *
- *  The options are passed to the Walk and Serialize streams..
- *
- *  @function load
- *  @param {String} file path.
- *  @param {Object} [opts] processing options.
- *
- *  @returns the parser stream.
- */
-function load(path, opts) {
-  opts.buffer = true;
-  var source = fs.createReadStream(path)
-    , ast = new Walk(opts)
-    , serialize = new Serialize(opts);
-  return source.pipe(ast).pipe(serialize);
-}
-
-/**
  *  Parse a commonmark string.
  *
  *  When a callback function is given it is added as a listener for 
@@ -60,6 +41,5 @@ function serialize(buffer, opts, cb) {
 }
 
 module.exports = {
-  load: load,
   serialize: serialize
 }

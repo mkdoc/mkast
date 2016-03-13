@@ -17,7 +17,7 @@ describe('mkast:', function() {
 
     function complete(doc) {
       expect(doc).to.be.an('object');
-      console.dir(doc)
+      //console.dir(doc)
       expect((new Renderer()).render(doc)).to.eql(expected);
       done(); 
     }
