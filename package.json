@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "commonmark": "~0.24.0",
+    "stream-lines": "~1.1.7",
     "through3": "~1.1.5"
   },
   "devDependencies": {

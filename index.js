@@ -1,6 +1,22 @@
-var Walk = require('./lib/walk')
+var through = require('through3')
+  , LineStream = require('stream-lines')
+  , EachStream = through.transform(each)
+  , Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize')
   , Deserialize = require('./lib/deserialize');
+
+/**
+ *  Iterate the lines.
+ *
+ *  @private
+ */
+function each(chunk, encoding, cb) {
+  var scope = this;
+  chunk.forEach(function(item) {
+    scope.push(item); 
+  })
+  cb();
+}
 
 /**
  *  Deserialize line-delimited JSON to commonmark AST.
@@ -16,7 +32,11 @@ var Walk = require('./lib/walk')
  */
 function deserialize(stream, cb) {
   var deserializer = new Deserialize();
-  stream.pipe(deserializer);
+  stream
+    .pipe(new LineStream())
+    .pipe(new EachStream())
+    .pipe(deserializer);
+
   if(cb) {
     deserializer
       .once('error', cb)
