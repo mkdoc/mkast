@@ -1,6 +1,5 @@
 var through = require('through3')
   , LineStream = require('stream-lines')
-  , EachStream = through.transform(each)
   , Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize')
   , Deserialize = require('./lib/deserialize');
@@ -17,6 +16,9 @@ function each(chunk, encoding, cb) {
   })
   cb();
 }
+
+
+var EachStream = through.transform(each);
 
 /**
  *  Deserialize line-delimited JSON to commonmark AST.
@@ -44,6 +46,7 @@ function deserialize(stream, cb) {
         cb(null, doc); 
       });
   }
+
   return deserializer;
 }
 
@@ -61,9 +64,9 @@ function deserialize(stream, cb) {
  */
 function serialize(buffer, cb) {
   var ast = new Walk()
-    , serialize = new Serialize();
+    , serializer = new Serialize();
 
-  ast.pipe(serialize);
+  ast.pipe(serializer);
 
   if(cb) {
     ast
@@ -76,7 +79,7 @@ function serialize(buffer, cb) {
     ast.end(buffer);
   })
 
-  return serialize;
+  return serializer;
 }
 
 module.exports = {
