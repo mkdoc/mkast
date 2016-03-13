@@ -6,7 +6,7 @@ var Walk = require('./lib/walk')
  *  Deserialize line-delimited JSON to commonmark AST.
  *
  *  When a callback function is given it is added as a listener for 
- *  the error and finish events on the parser stream.
+ *  the error and eof events on the deserializer stream.
  *
  *  @function deserialize
  *  @param {Object} stream input stream.
@@ -31,7 +31,7 @@ function deserialize(stream, cb) {
  *  Serialize a commonmark AST to line-delimited JSON.
  *
  *  When a callback function is given it is added as a listener for 
- *  the error and finish events on the parser stream.
+ *  the error and finish events on the serializer stream.
  *
  *  @function serialize
  *  @param {Object} buffer input AST.
