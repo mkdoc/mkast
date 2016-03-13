@@ -2,10 +2,27 @@ Table of Contents
 =================
 
 * [Commonmark AST Transformer](#commonmark-ast-transformer)
+  * [deserialize](#deserialize)
   * [serialize](#serialize)
 
 Commonmark AST Transformer
 ==========================
+
+## deserialize
+
+```javascript
+deserialize(stream[, cb])
+```
+
+Deserialize line-delimited JSON to commonmark AST.
+
+When a callback function is given it is added as a listener for
+the error and finish events on the parser stream.
+
+Returns the serializer stream.
+
+* `stream` Object input stream.
+* `cb` Function callback function.
 
 ## serialize
 

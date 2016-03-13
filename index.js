@@ -1,5 +1,31 @@
 var Walk = require('./lib/walk')
-  , Serialize = require('./lib/serialize');
+  , Serialize = require('./lib/serialize')
+  , Deserialize = require('./lib/deserialize');
+
+/**
+ *  Deserialize line-delimited JSON to commonmark AST.
+ *
+ *  When a callback function is given it is added as a listener for 
+ *  the error and finish events on the parser stream.
+ *
+ *  @function deserialize
+ *  @param {Object} stream input stream.
+ *  @param {Function} [cb] callback function.
+ *
+ *  @returns the serializer stream.
+ */
+function deserialize(stream, cb) {
+  var deserializer = new Deserialize();
+  stream.pipe(deserializer);
+  if(cb) {
+    deserializer
+      .once('error', cb)
+      .once('eof', function(doc) {
+        cb(null, doc); 
+      });
+  }
+  return deserializer;
+}
 
 /**
  *  Serialize a commonmark AST to line-delimited JSON.
@@ -34,5 +60,6 @@ function serialize(buffer, cb) {
 }
 
 module.exports = {
-  serialize: serialize
+  serialize: serialize,
+  deserialize: deserialize
 }

@@ -15,13 +15,26 @@ describe('mkast:', function() {
   });
 
 
-  it('should serialize and deserialize ast', function(done) {
-
+  it('should serialize and deserialize ast w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>')
       , expected = (new Renderer()).render(buffer)
-      , stream = ast.serialize(buffer)
-      , deserializer = new Deserialize();
+      //, deserializer = new Deserialize();
+
+    function complete(err, doc) {
+      expect(doc).to.be.an('object');
+      expect((new Renderer()).render(doc)).to.eql(expected);
+      done(); 
+    }
+
+    ast.deserialize(ast.serialize(buffer), complete);
+  });
+
+  it('should serialize and deserialize ast w/ listener', function(done) {
+    var parser = new Parser()
+      , buffer = parser.parse('# Title\n<? @include file.md ?>')
+      , expected = (new Renderer()).render(buffer)
+      , deserializer = ast.deserialize(ast.serialize(buffer));
 
     function complete(doc) {
       expect(doc).to.be.an('object');
@@ -29,7 +42,6 @@ describe('mkast:', function() {
       done(); 
     }
 
-    stream.pipe(deserializer);
     deserializer.once('eof', complete);
   });
 
