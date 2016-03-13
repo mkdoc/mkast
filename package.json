@@ -40,7 +40,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "mdp": {
-    "title": "Comment Parser",
+    "title": "AST Transformer",
     "pedantic": true,
     "include": "doc/readme",
     "require": "lib",

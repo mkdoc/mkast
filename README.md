@@ -1,34 +1,21 @@
 Table of Contents
 =================
 
-* [Comment Parser](#comment-parser)
+* [AST Transformer](#ast-transformer)
   * [Install](#install)
   * [Usage](#usage)
-  * [Comments](#comments)
-    * [Tags](#tags)
-    * [Block](#block)
   * [License](#license)
 
-Comment Parser
-==============
+AST Transformer
+===============
 
 [<img src="https://travis-ci.org/mkdoc/mkast.svg?v=3" alt="Build Status">](https://travis-ci.org/mkdoc/mkast)
 [<img src="http://img.shields.io/npm/v/mkast.svg?v=3" alt="npm version">](https://npmjs.org/package/mkast)
 [<img src="https://coveralls.io/repos/mkdoc/mkast/badge.svg?branch=master&service=github&v=3" alt="Coverage Status">](https://coveralls.io/github/mkdoc/mkast?branch=master).
 
-Fast, streaming and configurable comment parser; currently supports 30+ languages.
+Transforms commonmark AST documents to and from JSON for piping between streams.
 
-Designed for polyglot programmers to:
-
-* Combine comments from various files (HTML, CSS and Javascript for example).
-* Parse comments from any language.
-* Strip comments from any file.
-* Separate comments into another file.
-* Implement custom tag systems (annotations).
-* Operate on processing instructions (see the [pi language](https://github.com/mkdoc/mkast/blob/master/API.md#pi)).
-* Document JSON files, read comments then strip in build process.
-
-See the [i/o sample](https://github.com/mkdoc/mkast/blob/master/EXAMPLE.md) and the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
+See the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
 
 ## Install
 
@@ -91,100 +78,6 @@ stream.on('comment', function(comment) {
 ```
 
 For more detail see the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
-
-## Comments
-
-A comment consists of a multi-line description and optional tag annotations:
-
-```javascript
-/**
- * Method description
- * that can span multiple lines.
- *
- * @name method
- */
-
-// Method description
-// that can span multiple lines.
-//
-// @name method
-```
-
-All the following comments resolve to the same description with the default settings:
-
-```javascript
-/** Comment description */
-
-/**
- * Comment description
- */
-
-/*************************
- * Comment description   *
- ************************/
-
-// Comment description //
-
-//
-// Comment description
-//
-```
-
-### Tags
-
-Tags allow annotating a comment with meaningful information to consumers of the comment data.
-
-The tag parser recognises tags beginning with an `@` and is able to parse `type`, 
-`value` (default), `name`, `description` and an `optional` flag.
-
-Grammar for the default tag parser:
-
-```
-@id {type=value} [name] description
-```
-
-All fields but the tag `id` are considered optional, to set the `optional` flag 
-enclose `name` in square brackets (`[]`).
-
-When given `@property {String=mkdoc} [nickname] user` it expands to a tag object such as:
-
-```javascript
-{
-  id: 'property',
-  type: 'String',
-  value: 'mkdoc',
-  name: 'nickname',
-  description: 'user',
-  optional: true
-}
-```
-
-See the [tag api docs](https://github.com/mkdoc/mkast/blob/master/API.md#tag) to change the tag parsing.
-
-### Block
-
-By default continuous single-line comments are gathered into a single `comment` object. The 
-rule is that if the next line does not match whitespace followed by the start of a 
-single-line comment then the block is terminated.
-
-Note that inline comments also break the block:
-
-```javascript
-// 
-// Comment description
-// 
-var foo; // Separate inline comment
-```
-
-Will result in two comments, whilst:
-
-```javascript
-// Comment description
-// 
-// More information.
-```
-
-Results in a single comment.
 
 ## License
 
