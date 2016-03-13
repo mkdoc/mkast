@@ -1,6 +1,6 @@
 {
   "name": "mkast",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Commonmark AST transformer",
   "main": "index.js",
   "author": "muji",
