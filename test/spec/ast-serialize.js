@@ -7,7 +7,7 @@ var expect = require('chai').expect
 
 describe('mkast:', function() {
 
-  it('should parse string input w/ callback', function(done) {
+  it('should serialize ast to json w/ callback', function(done) {
 
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>')
@@ -17,7 +17,6 @@ describe('mkast:', function() {
 
     function complete(doc) {
       expect(doc).to.be.an('object');
-      //console.dir(doc)
       expect((new Renderer()).render(doc)).to.eql(expected);
       done(); 
     }
