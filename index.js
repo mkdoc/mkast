@@ -1,6 +1,4 @@
 var fs = require('fs')
-  , cmark = require('commonmark')
-  , Parser = cmark.Parser
   , Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize');
 
@@ -43,8 +41,7 @@ function serialize(buffer, opts, cb) {
   }
 
   var ast = new Walk(opts)
-    , serialize = new Serialize(opts)
-    , parser = new Parser(opts);
+    , serialize = new Serialize(opts);
 
   ast.pipe(serialize);
 
@@ -53,9 +50,6 @@ function serialize(buffer, opts, cb) {
       .once('error', cb)
       .once('finish', cb);
   }
-
-  // convert to AST
-  buffer = parser.parse(buffer);
 
   // give callers a chance to listen for events
   process.nextTick(function() {
