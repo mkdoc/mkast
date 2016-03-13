@@ -1,12 +1,13 @@
 var fs = require('fs')
   , cmark = require('commonmark')
   , Parser = cmark.Parser
-  , Ast = require('./lib/ast');
+  , Walk = require('./lib/walk')
+  , Serialize = require('./lib/serialize');
 
 /**
  *  Load and parse file contents.
  *
- *  The options are passed to the `LineStream`, `Comment` and `Parser`.
+ *  The options are passed to the Walk and Serialize streams..
  *
  *  @function load
  *  @param {String} file path.
@@ -17,8 +18,9 @@ var fs = require('fs')
 function load(path, opts) {
   opts.buffer = true;
   var source = fs.createReadStream(path)
-    , ast = new Ast(opts);
-  return source.pipe(ast);
+    , ast = new Walk(opts)
+    , serialize = new Serialize(opts);
+  return source.pipe(ast).pipe(serialize);
 }
 
 /**
@@ -27,22 +29,24 @@ function load(path, opts) {
  *  When a callback function is given it is added as a listener for 
  *  the error and finish events on the parser stream.
  *
- *  @function parse
+ *  @function serialize
  *  @param {String|Buffer} buffer input data.
  *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
  *
- *  @returns the parser stream.
+ *  @returns the serializer stream.
  */
-function parse(buffer, opts, cb) {
-
+function serialize(buffer, opts, cb) {
   if(typeof opts === 'function') {
     cb = opts;
     opts =  null;
   }
 
-  var ast = new Ast(opts)
+  var ast = new Walk(opts)
+    , serialize = new Serialize(opts)
     , parser = new Parser(opts);
+
+  ast.pipe(serialize);
 
   if(cb) {
     ast
@@ -58,10 +62,10 @@ function parse(buffer, opts, cb) {
     ast.end(buffer);
   })
 
-  return ast;
+  return serialize;
 }
 
 module.exports = {
   load: load,
-  parse: parse
+  serialize: serialize
 }
