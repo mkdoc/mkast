@@ -31,7 +31,7 @@
   },
   "scripts": {
     "clean": "rm -rf coverage",
-    "docs": "npm run api && npm run example && npm run readme",
+    "docs": "npm run api && npm run readme",
     "readme": "mdp --force -v",
     "api": "mdp --force -v -i doc/api.json -o API.md",
     "lint": "jshint . && jscs .",
@@ -52,11 +52,7 @@
         "inc": [
           "introduction.md",
           "install.md",
-          "usage.md"
-        ]
-      },
-      {
-        "inc": [
+          "usage.md",
           "license.md"
         ]
       }

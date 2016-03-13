@@ -9,21 +9,13 @@ var Walk = require('./lib/walk')
  *
  *  @function serialize
  *  @param {Object} buffer input AST.
- *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
  *
  *  @returns the serializer stream.
  */
-function serialize(buffer, opts, cb) {
-  if(typeof opts === 'function') {
-    cb = opts;
-    opts =  null;
-  }
-
-  opts = opts || {};
-
-  var ast = new Walk(opts)
-    , serialize = new Serialize(opts);
+function serialize(buffer, cb) {
+  var ast = new Walk()
+    , serialize = new Serialize();
 
   ast.pipe(serialize);
 
