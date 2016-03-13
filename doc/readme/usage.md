@@ -10,4 +10,4 @@ var cmark = require('commonmark')
 mkast.serialize(ast).pipe(process.stdout);
 ```
 
-For more detail see the [api docs](/API.md).
+For more information see the [api docs](#api).

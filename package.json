@@ -31,9 +31,8 @@
   },
   "scripts": {
     "clean": "rm -rf coverage",
-    "docs": "npm run api && npm run readme",
+    "docs": "npm run readme",
     "readme": "mdp --force -v",
-    "api": "mdp --force -v -i doc/api.json -o API.md",
     "lint": "jshint . && jscs .",
     "test": "NODE_env=test mocha ${SPEC:-test/spec/**}",
     "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec/**}",
@@ -52,7 +51,14 @@
         "inc": [
           "introduction.md",
           "install.md",
-          "usage.md",
+          "usage.md"
+        ]
+      },
+      {
+        "bin": "mkapi index.js --level=2 --title=API"
+      },
+      {
+        "inc": [
           "license.md"
         ]
       }

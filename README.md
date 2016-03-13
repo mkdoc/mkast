@@ -4,6 +4,9 @@ Table of Contents
 * [AST Transformer](#ast-transformer)
   * [Install](#install)
   * [Usage](#usage)
+  * [API](#api)
+    * [deserialize](#deserialize)
+    * [serialize](#serialize)
   * [License](#license)
 
 AST Transformer
@@ -33,7 +36,41 @@ var cmark = require('commonmark')
 mkast.serialize(ast).pipe(process.stdout);
 ```
 
-For more detail see the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
+For more information see the [api docs](#api).
+
+## API
+
+### deserialize
+
+```javascript
+deserialize(stream[, cb])
+```
+
+Deserialize line-delimited JSON to commonmark AST.
+
+When a callback function is given it is added as a listener for
+the error and eof events on the deserializer stream.
+
+Returns the serializer stream.
+
+* `stream` Object input stream.
+* `cb` Function callback function.
+
+### serialize
+
+```javascript
+serialize(buffer[, cb])
+```
+
+Serialize a commonmark AST to line-delimited JSON.
+
+When a callback function is given it is added as a listener for
+the error and finish events on the serializer stream.
+
+Returns the serializer stream.
+
+* `buffer` Object input AST.
+* `cb` Function callback function.
 
 ## License
 
