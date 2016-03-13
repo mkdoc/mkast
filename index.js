@@ -1,6 +1,7 @@
 var fs = require('fs')
-  , through = require('through3')
-  , LineStream = require('stream-lines');
+  , cmark = require('commonmark')
+  , Parser = cmark.Parser
+  , Ast = require('./lib/ast');
 
 /**
  *  Load and parse file contents.
@@ -14,19 +15,14 @@ var fs = require('fs')
  *  @returns the parser stream.
  */
 function load(path, opts) {
+  opts.buffer = true;
   var source = fs.createReadStream(path)
-    , lines = new LineStream(opts)
-    //, comment = new Comment(opts)
-    //, parser = new Parser(opts);
-
-  return source
-    .pipe(lines)
-    //.pipe(comment)
-    //.pipe(parser);
+    , ast = new Ast(opts);
+  return source.pipe(ast);
 }
 
 /**
- *  Parse a string or buffer.
+ *  Parse a commonmark string.
  *
  *  When a callback function is given it is added as a listener for 
  *  the error and finish events on the parser stream.
@@ -45,30 +41,24 @@ function parse(buffer, opts, cb) {
     opts =  null;
   }
 
-  var Readable = through.passthrough()
-    , source = new Readable()
-    , lines = new LineStream(opts)
-    //, comment = new Comment(opts)
-    //, parser = new Parser(opts);
-
-  source
-    .pipe(lines)
-    //.pipe(comment)
-    //.pipe(parser);
+  var ast = new Ast(opts)
+    , parser = new Parser(opts);
 
   if(cb) {
-    lines
+    ast
       .once('error', cb)
       .once('finish', cb);
   }
 
+  // convert to AST
+  buffer = parser.parse(buffer);
+
   // give callers a chance to listen for events
   process.nextTick(function() {
-    source.end(buffer);
+    ast.end(buffer);
   })
 
-  //return parser;
-  return lines;
+  return ast;
 }
 
 module.exports = {
