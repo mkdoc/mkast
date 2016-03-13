@@ -8,20 +8,21 @@ var expect = require('chai').expect
 describe('mkast:', function() {
 
   it('should parse string input w/ callback', function(done) {
+
     var parser = new Parser()
-      , buffer = parser.parse('# Title')
+      , buffer = parser.parse('# Title\n<? @include file.md ?>')
       , expected = (new Renderer()).render(buffer)
       , stream = ast.serialize(buffer)
       , deserializer = new Deserialize();
 
     function complete(doc) {
       expect(doc).to.be.an('object');
+      console.dir(doc)
       expect((new Renderer()).render(doc)).to.eql(expected);
       done(); 
     }
 
     stream.pipe(deserializer);
-
     deserializer.once('eof', complete);
   });
 
