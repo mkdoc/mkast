@@ -13,9 +13,7 @@ AST Transformer
 [<img src="http://img.shields.io/npm/v/mkast.svg?v=3" alt="npm version">](https://npmjs.org/package/mkast)
 [<img src="https://coveralls.io/repos/mkdoc/mkast/badge.svg?branch=master&service=github&v=3" alt="Coverage Status">](https://coveralls.io/github/mkdoc/mkast?branch=master).
 
-Transforms commonmark AST documents to and from JSON for piping between streams.
-
-See the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
+Transforms commonmark AST documents to and from JSON for piping between processes.
 
 ## Install
 
@@ -30,9 +28,9 @@ Serialize commonmark AST to line-delimited JSON:
 ```javascript
 var cmark = require('commonmark')
   , parser = new cmark.Parser()
-  , mkast = require('mkast');
+  , mkast = require('mkast')
   , ast = parser.parse('# Title\n<? @include file.md ?>');
-mkast.serialize(ast, done);
+mkast.serialize(ast).pipe(process.stdout);
 ```
 
 For more detail see the [api docs](https://github.com/mkdoc/mkast/blob/master/API.md).
