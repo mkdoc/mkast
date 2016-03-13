@@ -1,0 +1,14 @@
+{
+  "title": "Commonmark AST Transformer",
+  "pedantic": true,
+  "include": "doc/readme",
+  "require": "lib",
+  "links": "links.md",
+  "toc": "Table of Contents",
+  "base": "https://github.com/mkdoc/mkast",
+  "partial": [
+    {
+      "bin": "mkapi index.js --level=2"
+    }
+  ]
+}

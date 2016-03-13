@@ -1,0 +1,66 @@
+{
+  "name": "mkast",
+  "version": "1.0.0",
+  "description": "Commonmark AST transformer",
+  "main": "index.js",
+  "author": "muji",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkdoc/mkast/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkdoc/mkast.git"
+  },
+  "keywords": [
+    "markdown",
+    "commonmark",
+    "parser",
+    "stream",
+    "ast"
+  ],
+  "dependencies": {
+    "commonmark": "~0.24.0",
+    "stream-lines": "~1.1.7",
+    "through3": "~1.1.5"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "coveralls": "~2.11.8",
+    "istanbul": "~0.4.2",
+    "mocha": "~2.4.5"
+  },
+  "scripts": {
+    "clean": "rm -rf coverage",
+    "docs": "npm run api && npm run example && npm run readme",
+    "readme": "mdp --force -v",
+    "api": "mdp --force -v -i doc/api.json -o API.md",
+    "lint": "jshint . && jscs .",
+    "test": "NODE_env=test mocha ${SPEC:-test/spec/**}",
+    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec/**}",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "mdp": {
+    "title": "Comment Parser",
+    "pedantic": true,
+    "include": "doc/readme",
+    "require": "lib",
+    "links": "links.md",
+    "toc": "Table of Contents",
+    "base": "https://github.com/mkdoc/mkast",
+    "partial": [
+      {
+        "inc": [
+          "introduction.md",
+          "install.md",
+          "usage.md"
+        ]
+      },
+      {
+        "inc": [
+          "license.md"
+        ]
+      }
+    ]
+  }
+}
