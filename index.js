@@ -1,15 +1,14 @@
-var fs = require('fs')
-  , Walk = require('./lib/walk')
+var Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize');
 
 /**
- *  Parse a commonmark string.
+ *  Serialize a commonmark AST to line-delimited JSON.
  *
  *  When a callback function is given it is added as a listener for 
  *  the error and finish events on the parser stream.
  *
  *  @function serialize
- *  @param {String|Buffer} buffer input data.
+ *  @param {Object} buffer input AST.
  *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
  *
@@ -20,6 +19,8 @@ function serialize(buffer, opts, cb) {
     cb = opts;
     opts =  null;
   }
+
+  opts = opts || {};
 
   var ast = new Walk(opts)
     , serialize = new Serialize(opts);

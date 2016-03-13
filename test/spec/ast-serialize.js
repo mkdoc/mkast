@@ -7,7 +7,16 @@ var expect = require('chai').expect
 
 describe('mkast:', function() {
 
-  it('should serialize ast to json w/ callback', function(done) {
+  it('should serialize ast w/ callback', function(done) {
+
+    var parser = new Parser()
+      , buffer = parser.parse('# Title\n<? @include file.md ?>')
+      , expected = (new Renderer()).render(buffer)
+      , stream = ast.serialize(buffer, done);
+  });
+
+
+  it('should serialize and deserialize ast', function(done) {
 
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>')
