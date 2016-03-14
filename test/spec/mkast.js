@@ -32,6 +32,32 @@ describe('mkast:', function() {
     }
   );
 
+  it('should serialize and deserialize list w/ callback', function(done) {
+    var parser = new Parser()
+      , buffer = parser.parse('* foo\n* bar\n')
+      , expected = (new Renderer()).render(buffer)
+      //, deserializer = new Deserialize();
+
+    function complete(err, doc) {
+      expect(doc).to.be.an('object');
+
+      //console.dir(doc);
+
+      //var walker = doc.walker()
+        //, event;
+
+      //while((event = walker.next())) {
+        //if(event.entering) {
+          //console.dir(event.node); 
+        //}
+      //}
+      expect((new Renderer()).render(doc)).to.eql(expected);
+      done(); 
+    }
+
+    ast.deserialize(ast.serialize(buffer), complete);
+  });
+
   it('should serialize and deserialize ast w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>')
