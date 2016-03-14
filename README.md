@@ -6,6 +6,7 @@ Table of Contents
   * [Usage](#usage)
   * [API](#api)
     * [deserialize](#deserialize)
+    * [deserialize](#deserialize-1)
     * [serialize](#serialize)
   * [License](#license)
 
@@ -46,7 +47,23 @@ For more information see the [api docs](#api).
 deserialize(stream[, cb])
 ```
 
-Deserialize line-delimited JSON to commonmark AST.
+Parse line-delimited JSON to commonmark AST.
+
+When a callback function is given it is added as a listener for
+the error and eof events on the deserializer stream.
+
+Returns the deserializer stream.
+
+* `stream` Object input stream.
+* `cb` Function callback function.
+
+### deserialize
+
+```javascript
+deserialize(stream[, cb])
+```
+
+Deserialize line-delimited JSON to commonmark AST documents.
 
 When a callback function is given it is added as a listener for
 the error and eof events on the deserializer stream.

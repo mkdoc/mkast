@@ -2,7 +2,8 @@ var through = require('through3')
   , LineStream = require('stream-lines')
   , Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize')
-  , Deserialize = require('./lib/deserialize');
+  , Deserialize = require('./lib/deserialize')
+  , Parser = require('./lib/parser');
 
 /**
  *  Iterate the lines.
@@ -17,11 +18,39 @@ function each(chunk, encoding, cb) {
   cb();
 }
 
-
 var EachStream = through.transform(each);
 
 /**
- *  Deserialize line-delimited JSON to commonmark AST.
+ *  Parse line-delimited JSON to commonmark AST.
+ *
+ *  When a callback function is given it is added as a listener for 
+ *  the error and eof events on the deserializer stream.
+ *
+ *  @function deserialize
+ *  @param {Object} stream input stream.
+ *  @param {Function} [cb] callback function.
+ *
+ *  @returns the deserializer stream.
+ */
+function parser(stream, cb) {
+  var parser = new Parser();
+  stream
+    .pipe(new LineStream())
+    .pipe(new EachStream())
+    .pipe(parser);
+
+  if(cb) {
+    parser
+      .once('error', cb)
+      .once('finish', function(doc) {
+        cb(null, doc); 
+      });
+  }
+  return parser;
+}
+
+/**
+ *  Deserialize line-delimited JSON to commonmark AST documents.
  *
  *  When a callback function is given it is added as a listener for 
  *  the error and eof events on the deserializer stream.
@@ -37,6 +66,7 @@ function deserialize(stream, cb) {
   stream
     .pipe(new LineStream())
     .pipe(new EachStream())
+    .pipe(new Parser())
     .pipe(deserializer);
 
   if(cb) {
@@ -46,7 +76,6 @@ function deserialize(stream, cb) {
         cb(null, doc); 
       });
   }
-
   return deserializer;
 }
 
@@ -84,5 +113,6 @@ function serialize(buffer, cb) {
 
 module.exports = {
   serialize: serialize,
-  deserialize: deserialize
+  deserialize: deserialize,
+  parser: parser
 }

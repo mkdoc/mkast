@@ -4,7 +4,8 @@ var expect = require('chai').expect
   , Renderer = cmark.XmlRenderer
   , ast = require('../../index')
   , Walk = require('../../lib/walk')
-  , Deserialize = require('../../lib/deserialize');
+  //, Deserialize = require('../../lib/deserialize')
+  , ParserStream = require('../../lib/parser');
 
 describe('mkast:', function() {
 
@@ -14,6 +15,22 @@ describe('mkast:', function() {
     ast.serialize(buffer, done);
   });
 
+  it('should serialize ast and parse result lines w/ callback',
+    function(done) {
+      var parser = new Parser()
+        , buffer = parser.parse('# Title\n<? @include file.md ?>');
+      ast.parser(ast.serialize(buffer), done);
+    }
+  );
+
+  it('should serialize ast and parse result lines w/ listener',
+    function(done) {
+      var parser = new Parser()
+        , buffer = parser.parse('# Title\n<? @include file.md ?>');
+      var stream = ast.parser(ast.serialize(buffer));
+      stream.once('finish', done);
+    }
+  );
 
   it('should serialize and deserialize ast w/ callback', function(done) {
     var parser = new Parser()
@@ -52,15 +69,15 @@ describe('mkast:', function() {
   });
 
   it('should error on bad json', function(done) {
-    var deserializer = new Deserialize();
-    deserializer.once('error', function(err) {
+    var parser = new ParserStream();
+    parser.once('error', function(err) {
       function fn() {
         throw err;
       }
       expect(fn).throws(Error);
       done(); 
     });
-    deserializer.end(new Buffer('{'));
+    parser.end(new Buffer('{'));
   });
 
 });
