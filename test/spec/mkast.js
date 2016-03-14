@@ -41,16 +41,11 @@ describe('mkast:', function() {
     function complete(err, doc) {
       expect(doc).to.be.an('object');
 
-      //console.dir(doc);
+      //expect(doc).to.eql(buffer);
 
-      //var walker = doc.walker()
-        //, event;
+      console.dir(doc);
+      console.dir(expected);
 
-      //while((event = walker.next())) {
-        //if(event.entering) {
-          //console.dir(event.node); 
-        //}
-      //}
       expect((new Renderer()).render(doc)).to.eql(expected);
       done(); 
     }
