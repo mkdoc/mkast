@@ -72,7 +72,7 @@ function deserialize(stream, cb) {
   if(cb) {
     deserializer
       .once('error', cb)
-      .once('eof', function(doc) {
+      .on('eof', function(doc) {
         cb(null, doc); 
       });
   }
