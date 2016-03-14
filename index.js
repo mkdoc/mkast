@@ -1,4 +1,5 @@
 var through = require('through3')
+  , Node = require('commonmark/lib/node')
   , LineStream = require('stream-lines')
   , Walk = require('./lib/walk')
   , Serialize = require('./lib/serialize')
@@ -114,5 +115,6 @@ function serialize(buffer, cb) {
 module.exports = {
   serialize: serialize,
   deserialize: deserialize,
-  parser: parser
+  parser: parser,
+  Node: Node
 }
