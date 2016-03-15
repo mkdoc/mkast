@@ -87,13 +87,19 @@ function deserialize(stream, cb) {
  *
  *  @function serialize
  *  @param {Object} buffer input AST.
+ *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
  *
  *  @returns the serializer stream.
  */
-function serialize(buffer, cb) {
-  var ast = new Walk()
-    , serializer = new Serialize();
+function serialize(buffer, opts, cb) {
+  if(typeof opts === 'function') {
+    cb = opts;
+    opts = null;
+  }
+
+  var ast = new Walk(opts)
+    , serializer = new Serialize(opts);
 
   ast.pipe(serializer);
 
