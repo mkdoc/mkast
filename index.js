@@ -98,6 +98,8 @@ function serialize(buffer, opts, cb) {
     opts = null;
   }
 
+  opts = opts || {};
+
   var ast = new Walk(opts)
     , serializer = new Serialize(opts);
 
