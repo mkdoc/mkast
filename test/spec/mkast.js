@@ -9,26 +9,26 @@ var expect = require('chai').expect
 
 describe('mkast:', function() {
 
-  //it('should serialize and deserialize list w/ callback', function(done) {
-    //var parser = new Parser()
-      //, buffer = parser.parse('* foo\n* bar\n')
-      //, expected = (new Renderer()).render(buffer)
-      ////, deserializer = new Deserialize();
+  it('should serialize and deserialize list w/ callback', function(done) {
+    var parser = new Parser()
+      , buffer = parser.parse('* foo\n* bar\n')
+      , expected = (new Renderer()).render(buffer)
+      //, deserializer = new Deserialize();
 
-    //function complete(err, doc) {
-      //expect(doc).to.be.an('object');
+    function complete(err, doc) {
+      expect(doc).to.be.an('object');
 
-      ////expect(doc).to.eql(buffer);
+      //expect(doc).to.eql(buffer);
 
       //console.dir(doc);
       //console.dir(expected);
 
-      //expect((new Renderer()).render(doc)).to.eql(expected);
-      //done(); 
-    //}
+      expect((new Renderer()).render(doc)).to.eql(expected);
+      done(); 
+    }
 
-    //ast.deserialize(ast.serialize(buffer), complete);
-  //});
+    ast.deserialize(ast.serialize(buffer), complete);
+  });
 
 
   it('should serialize ast w/ callback', function(done) {
