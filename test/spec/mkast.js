@@ -4,7 +4,6 @@ var expect = require('chai').expect
   , Renderer = cmark.XmlRenderer
   , ast = require('../../index')
   , Walk = require('../../lib/walk')
-  //, Deserialize = require('../../lib/deserialize')
   , ParserStream = require('../../lib/parser');
 
 describe('mkast:', function() {
@@ -12,8 +11,7 @@ describe('mkast:', function() {
   it('should serialize and deserialize list w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('* foo\n* bar\n')
-      , expected = (new Renderer()).render(buffer)
-      //, deserializer = new Deserialize();
+      , expected = (new Renderer()).render(buffer);
 
     function complete(err, doc) {
       expect(doc).to.be.an('object');
@@ -57,8 +55,7 @@ describe('mkast:', function() {
   it('should serialize and deserialize ast w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>')
-      , expected = (new Renderer()).render(buffer)
-      //, deserializer = new Deserialize();
+      , expected = (new Renderer()).render(buffer);
 
     function complete(err, doc) {
       expect(doc).to.be.an('object');
