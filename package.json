@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "commonmark": "tmpfs/commonmark.js",
-    "stream-lines": "~1.1.7",
+    "stream-lines": "~1.2.0",
     "through3": "~1.1.5"
   },
   "devDependencies": {
