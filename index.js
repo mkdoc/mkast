@@ -123,6 +123,6 @@ module.exports = {
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
-  Node: require('commonmark/lib/node'),
+  Node: require('./lib/node'),
   Parser: require('commonmark').Parser
 }
