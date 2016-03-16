@@ -50,7 +50,7 @@ function parser(stream, cb) {
 }
 
 /**
- *  Deserialize line-delimited JSON to commonmark AST documents.
+ *  Deserialize line-delimited JSON to commonmark AST nodes.
  *
  *  When a callback function is given it is added as a listener for 
  *  the `error` and `eof` events on the deserializer stream.
