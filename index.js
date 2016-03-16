@@ -42,9 +42,7 @@ function parser(stream, cb) {
   if(cb) {
     parser
       .once('error', cb)
-      .once('finish', function(doc) {
-        cb(null, doc); 
-      });
+      .once('finish', cb);
   }
   return parser;
 }
