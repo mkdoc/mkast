@@ -32,8 +32,12 @@ var EachStream = through.transform(each);
  *
  *  @returns the parser stream.
  */
-function parser(stream, cb) {
-  var parser = new Parser();
+function parser(stream, opts, cb) {
+  if(typeof opts === 'function') {
+    cb = opts;
+    opts = null;
+  }
+  var parser = new Parser(opts);
   stream
     .pipe(new LineStream())
     .pipe(new EachStream())
