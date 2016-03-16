@@ -89,7 +89,7 @@ detached from the document and streamed as independent lines. So that
 consumers of the stream will know when the document ends a node
 with an `eof` type is sent to indicate the end of file (EOF).
 
-When injecting documents into a stream it may be deseribable to disable
+When injecting documents into a stream it may be desirable to disable
 this behaviour, to do so use:
 
 ```javascript
