@@ -5,8 +5,8 @@ Table of Contents
   * [Install](#install)
   * [Usage](#usage)
   * [API](#api)
+    * [parser](#parser)
     * [deserialize](#deserialize)
-    * [deserialize](#deserialize-1)
     * [serialize](#serialize)
   * [License](#license)
 
@@ -41,10 +41,10 @@ For more information see the [api docs](#api).
 
 ## API
 
-### deserialize
+### parser
 
 ```javascript
-deserialize(stream[, cb])
+parser(stream[, cb])
 ```
 
 Parse line-delimited JSON to commonmark AST.
@@ -76,7 +76,7 @@ Returns the deserializer stream.
 ### serialize
 
 ```javascript
-serialize(buffer[, cb])
+serialize(buffer[, opts][, cb])
 ```
 
 Serialize a commonmark AST to line-delimited JSON.
@@ -87,6 +87,7 @@ the error and finish events on the serializer stream.
 Returns the serializer stream.
 
 * `buffer` Object input AST.
+* `opts` Object processing options.
 * `cb` Function callback function.
 
 ## License

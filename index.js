@@ -26,7 +26,7 @@ var EachStream = through.transform(each);
  *  When a callback function is given it is added as a listener for 
  *  the error and eof events on the deserializer stream.
  *
- *  @function deserialize
+ *  @function parser
  *  @param {Object} stream input stream.
  *  @param {Function} [cb] callback function.
  *
