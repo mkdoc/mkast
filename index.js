@@ -30,7 +30,7 @@ var EachStream = through.transform(each);
  *  @param {Object} stream input stream.
  *  @param {Function} [cb] callback function.
  *
- *  @returns the deserializer stream.
+ *  @returns the parser stream.
  */
 function parser(stream, cb) {
   var parser = new Parser();
@@ -83,7 +83,19 @@ function deserialize(stream, cb) {
 }
 
 /**
- *  Serialize a commonmark AST to line-delimited JSON.
+ *  Serialize a commonmark AST node to line-delimited JSON.
+ *
+ *  When the node is of the `document` type it's direct descendants are 
+ *  detached from the document and streamed as independent lines. So that 
+ *  consumers of the stream will know when the document ends a node 
+ *  with an `eof` type is sent to indicate the end of file (EOF).
+ *
+ *  When injecting documents into a stream it may be deseribable to disable 
+ *  this behaviour, to do so use:
+ *
+ *  ```javascript
+ *  {eof: false}
+ *  ```
  *
  *  When a callback function is given it is added as a listener for 
  *  the `error` and `finish` events on the serializer stream.
@@ -92,6 +104,9 @@ function deserialize(stream, cb) {
  *  @param {Object} node input AST node.
  *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
+ *
+ *  @options {Boolean=true} eof disable sending an EOF node.
+ *  @options {Number=0} indent number of spaces to indent JSON.
  *
  *  @returns the serializer stream.
  */

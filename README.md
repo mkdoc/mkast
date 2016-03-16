@@ -52,7 +52,7 @@ Parse line-delimited JSON to vanilla objects.
 When a callback function is given it is added as a listener for
 the `error` and `finish` events on the parser stream.
 
-Returns the deserializer stream.
+Returns the parser stream.
 
 * `stream` Object input stream.
 * `cb` Function callback function.
@@ -82,7 +82,19 @@ Returns the deserializer stream.
 serialize(node[, opts][, cb])
 ```
 
-Serialize a commonmark AST to line-delimited JSON.
+Serialize a commonmark AST node to line-delimited JSON.
+
+When the node is of the `document` type it's direct descendants are
+detached from the document and streamed as independent lines. So that
+consumers of the stream will know when the document ends a node
+with an `eof` type is sent to indicate the end of file (EOF).
+
+When injecting documents into a stream it may be deseribable to disable
+this behaviour, to do so use:
+
+```javascript
+{eof: false}
+```
 
 When a callback function is given it is added as a listener for
 the `error` and `finish` events on the serializer stream.
