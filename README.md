@@ -50,7 +50,7 @@ parser(stream[, cb])
 Parse line-delimited JSON to vanilla objects.
 
 When a callback function is given it is added as a listener for
-the error and eof events on the deserializer stream.
+the `error` and `finish` events on the parser stream.
 
 Returns the deserializer stream.
 
@@ -66,7 +66,10 @@ deserialize(stream[, cb])
 Deserialize line-delimited JSON to commonmark AST documents.
 
 When a callback function is given it is added as a listener for
-the error and eof events on the deserializer stream.
+the `error` and `eof` events on the deserializer stream.
+
+The `eof` event can fire multiple times so the callback may be called
+multiple times.
 
 Returns the deserializer stream.
 
@@ -82,7 +85,7 @@ serialize(node[, opts][, cb])
 Serialize a commonmark AST to line-delimited JSON.
 
 When a callback function is given it is added as a listener for
-the error and finish events on the serializer stream.
+the `error` and `finish` events on the serializer stream.
 
 Returns the serializer stream.
 
