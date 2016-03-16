@@ -76,7 +76,7 @@ Returns the deserializer stream.
 ### serialize
 
 ```javascript
-serialize(buffer[, opts][, cb])
+serialize(node[, opts][, cb])
 ```
 
 Serialize a commonmark AST to line-delimited JSON.
@@ -86,7 +86,7 @@ the error and finish events on the serializer stream.
 
 Returns the serializer stream.
 
-* `buffer` Object input AST.
+* `node` Object input AST node.
 * `opts` Object processing options.
 * `cb` Function callback function.
 

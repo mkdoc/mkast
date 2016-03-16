@@ -86,13 +86,13 @@ function deserialize(stream, cb) {
  *  the error and finish events on the serializer stream.
  *
  *  @function serialize
- *  @param {Object} buffer input AST.
+ *  @param {Object} node input AST node.
  *  @param {Object} [opts] processing options.
  *  @param {Function} [cb] callback function.
  *
  *  @returns the serializer stream.
  */
-function serialize(buffer, opts, cb) {
+function serialize(node, opts, cb) {
   if(typeof opts === 'function') {
     cb = opts;
     opts = null;
@@ -113,7 +113,7 @@ function serialize(buffer, opts, cb) {
 
   // give callers a chance to listen for events
   process.nextTick(function() {
-    ast.end(buffer);
+    ast.end(node);
   })
 
   return serializer;
