@@ -21,7 +21,7 @@ function each(chunk, encoding, cb) {
 var EachStream = through.transform(each);
 
 /**
- *  Parse line-delimited JSON to commonmark AST.
+ *  Parse line-delimited JSON to vanilla objects.
  *
  *  When a callback function is given it is added as a listener for 
  *  the error and eof events on the deserializer stream.
