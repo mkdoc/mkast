@@ -61,18 +61,31 @@ function parser(stream, opts, cb) {
  *  multiple times.
  *
  *  @function deserialize
- *  @param {Object} stream input stream.
+ *  @param {Object} [stream] input stream.
  *  @param {Function} [cb] callback function.
  *
  *  @returns the deserializer stream.
  */
 function deserialize(stream, cb) {
-  var deserializer = new Deserialize();
-  stream
-    .pipe(new LineStream())
-    .pipe(new EachStream())
-    .pipe(new Parser())
+  var deserializer = new Deserialize()
+    , lines = new LineStream()
+    , each = new EachStream()
+    , parser = new Parser();
+
+  lines
+    .pipe(each)
+    .pipe(parser)
     .pipe(deserializer);
+
+  if(stream) {
+    stream.pipe(lines); 
+  }
+
+  //stream
+    //.pipe(new LineStream())
+    //.pipe(new EachStream())
+    //.pipe(new Parser())
+    //.pipe(deserializer);
 
   if(cb) {
     deserializer
