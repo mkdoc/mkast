@@ -3,8 +3,7 @@ var expect = require('chai').expect
   , Parser = cmark.Parser
   , Renderer = cmark.XmlRenderer
   , ast = require('../../index')
-  , Walk = require('../../lib/walk')
-  , ParserStream = require('../../lib/parser');
+  , Walk = require('../../lib/walk');
 
 describe('mkast:', function() {
 
@@ -79,18 +78,6 @@ describe('mkast:', function() {
     var walker = new Walk();
     walker.once('finish', done);
     walker.end({_type: 'foo'});
-  });
-
-  it('should error on bad json', function(done) {
-    var parser = new ParserStream();
-    parser.once('error', function(err) {
-      function fn() {
-        throw err;
-      }
-      expect(fn).throws(Error);
-      done(); 
-    });
-    parser.end(new Buffer('{'));
   });
 
 });
