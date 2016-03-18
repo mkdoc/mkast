@@ -182,6 +182,7 @@ module.exports = {
   src: src,
   walk: walk,
   stringify: stringify,
+  walker: require('./lib/node-walker'),
   Node: require('./lib/node'),
   Parser: require('commonmark').Parser
 }
