@@ -166,11 +166,20 @@ function stringify(opts) {
   return new Serialize(opts);
 }
 
+function src(markdown, opts) {
+  var walk = new Walk(opts);
+  process.nextTick(function() {
+    walk.end(parse(markdown));
+  })
+  return walk;
+}
+
 module.exports = {
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
   parse: parse,
+  src: src,
   walk: walk,
   stringify: stringify,
   Node: require('./lib/node'),
