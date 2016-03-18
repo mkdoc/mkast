@@ -162,12 +162,17 @@ function walk(opts) {
   return new Walk(opts);
 }
 
+function stringify(opts) {
+  return new Serialize(opts);
+}
+
 module.exports = {
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
   parse: parse,
   walk: walk,
+  stringify: stringify,
   Node: require('./lib/node'),
   Parser: require('commonmark').Parser
 }
