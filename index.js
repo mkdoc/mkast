@@ -152,10 +152,17 @@ function serialize(node, opts, cb) {
   return serializer;
 }
 
+function parse(markdown) {
+  var commonmark = require('commonmark')
+  , parser = new commonmark.Parser()
+  return parser.parse(markdown);
+}
+
 module.exports = {
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
+  parse: parse,
   Node: require('./lib/node'),
   Parser: require('commonmark').Parser
 }
