@@ -158,11 +158,16 @@ function parse(markdown) {
   return parser.parse(markdown);
 }
 
+function walk(opts) {
+  return new Walk(opts);
+}
+
 module.exports = {
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
   parse: parse,
+  walk: walk,
   Node: require('./lib/node'),
   Parser: require('commonmark').Parser
 }
