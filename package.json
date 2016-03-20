@@ -1,6 +1,6 @@
 {
   "name": "mkast",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "Abstract syntax tree transformer",
   "main": "index.js",
   "author": "muji",
