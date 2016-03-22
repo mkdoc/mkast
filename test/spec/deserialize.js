@@ -4,58 +4,58 @@ var expect = require('chai').expect
 
 describe('deserialize:', function() {
 
-  it('should deserialize _file property', function(done) {
+  it('should deserialize file property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'README.md'
       , obj
       , res;
 
-    doc._file = expected;
+    doc.file = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._file).to.eql(expected);
+    expect(res.file).to.eql(expected);
 
     expect(doc).to.eql(res);
     done();
   });
 
-  it('should deserialize _cmd property', function(done) {
+  it('should deserialize cmd property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'pwd'
       , obj
       , res;
 
-    doc._cmd = expected;
+    doc.cmd = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._cmd).to.eql(expected);
+    expect(res.cmd).to.eql(expected);
 
     expect(doc).to.eql(res);
     done();
   });
 
-  it('should deserialize _linkRefs property', function(done) {
+  it('should deserialize linkRefs property', function(done) {
     var doc = ast.parse('Text')
       , expected = true
       , obj
       , res;
 
-    doc._linkRefs = expected;
+    doc.linkRefs = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._linkRefs).to.eql(expected);
+    expect(res.linkRefs).to.eql(expected);
 
     expect(doc).to.eql(res);
 

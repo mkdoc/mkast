@@ -25,12 +25,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _file property', function(done) {
+  it('should serialize file property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'README.md'
       , obj;
 
-    doc._file = expected;
+    doc.file = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
@@ -40,12 +40,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _cmd property', function(done) {
+  it('should serialize cmd property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'pwd'
       , obj;
 
-    doc._cmd = expected;
+    doc.cmd = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
@@ -55,12 +55,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _linkRefs property', function(done) {
+  it('should serialize linkRefs property', function(done) {
     var doc = ast.parse('Text')
       , expected = true
       , obj;
 
-    doc._linkRefs = expected;
+    doc.linkRefs = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
