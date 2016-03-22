@@ -4,11 +4,8 @@ var expect = require('chai').expect
 
 describe('serialize:', function() {
 
-  it('should throw error on non-node', function(done) {
-    function fn() {
-      Node.serialize({});
-    }
-    expect(fn).throws(/expects a node instance/i);
+  it('should return value on non-node', function(done) {
+    expect(Node.serialize({})).to.eql({});
     done();
   });
 
