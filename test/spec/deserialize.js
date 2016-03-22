@@ -148,6 +148,26 @@ describe('deserialize:', function() {
     done();
   });
 
+  it('should deserialize html block', function(done) {
+    var doc = ast.parse('<? @pi ?>')
+      , obj
+      , res;
+
+    obj = Node.serialize(doc);
+    res = Node.deserialize(obj);
+
+    expect(doc).to.be.an('object');
+    expect(res).to.be.an('object');
+    expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(res.firstChild, Node.HTML_BLOCK)).to.eql(true);
+    expect(res.firstChild.literal).to.eql('<? @pi ?>');
+
+    expect(doc).to.eql(res);
+
+    done();
+  });
+
+
   it('should deserialize blockquote', function(done) {
     var doc = ast.parse('> Quotation\n\n')
       , obj

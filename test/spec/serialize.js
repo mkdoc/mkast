@@ -129,6 +129,18 @@ describe('serialize:', function() {
     done();
   });
 
+  it('should serialize html block', function(done) {
+    var doc = ast.parse('<? @pi ?>')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.HTML_BLOCK)).to.eql(true);
+    expect(obj.firstChild.literal).to.eql('<? @pi ?>');
+    done();
+  });
+
   it('should serialize blockquote', function(done) {
     var doc = ast.parse('> Quotation\n\n')
       , obj = Node.serialize(doc);
