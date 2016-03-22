@@ -2,7 +2,7 @@ var expect = require('chai').expect
   , ast = require('../../index')
   , Node = require('../../lib/node');
 
-describe('mkast:', function() {
+describe('deserialize:', function() {
 
   it('should deserialize _file property', function(done) {
     var doc = ast.parse('Text')

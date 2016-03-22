@@ -2,7 +2,7 @@ var expect = require('chai').expect
   , ast = require('../../index')
   , Node = require('../../lib/node');
 
-describe('mkast:', function() {
+describe('serialize:', function() {
 
   it('should throw error on non-node', function(done) {
     function fn() {

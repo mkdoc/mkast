@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , Node = require('../../lib/node');
 
-describe('mkast:', function() {
+describe('node:', function() {
 
   it('should return is of type (type)', function(done) {
     var node = Node.createDocument();

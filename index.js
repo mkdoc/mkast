@@ -2,6 +2,7 @@ var through = require('through3')
   , LineStream = require('stream-lines')
   , Walk = require('./lib/walk')
   , Node = require('./lib/node')
+  , NodeWalker = require('./lib/node-walker')
   , Serialize = require('./lib/serialize')
   , Deserialize = require('./lib/deserialize')
   , Parser = require('./lib/parser');
@@ -179,6 +180,7 @@ module.exports = {
   stringify: stringify,
   walker: require('./lib/node-walker'),
   Node: Node,
+  NodeWalker: NodeWalker,
   createDocumentFragment: Node.createDocumentFragment,
   Parser: require('commonmark').Parser
 }
