@@ -129,6 +129,19 @@ describe('mkast:', function() {
     done();
   });
 
+  it('should serialize blockquote', function(done) {
+    var doc = ast.parse('> Quotation\n\n')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.BLOCK_QUOTE)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(obj.firstChild.firstChild.firstChild.literal).to.eql('Quotation');
+    done();
+  });
+
   it('should serialize code block', function(done) {
     var doc = ast.parse('```javascript\nvar foo="bar";\n```')
       , obj = Node.serialize(doc);
