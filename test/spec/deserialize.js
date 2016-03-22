@@ -188,6 +188,25 @@ describe('deserialize:', function() {
     done();
   });
 
+  it('should deserialize thematic break', function(done) {
+    var doc = ast.parse('Foo\n\n---\n\n')
+      , obj
+      , res;
+
+    obj = Node.serialize(doc);
+    res = Node.deserialize(obj);
+
+    expect(doc).to.be.an('object');
+    expect(res).to.be.an('object');
+    expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(res.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(res.firstChild.next, Node.THEMATIC_BREAK)).to.eql(true);
+
+    expect(doc).to.eql(res);
+
+    done();
+  });
+
 
   it('should deserialize code block', function(done) {
     var doc = ast.parse('```javascript\nvar foo="bar";\n```')

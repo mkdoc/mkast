@@ -154,6 +154,18 @@ describe('serialize:', function() {
     done();
   });
 
+  it('should serialize thematic break', function(done) {
+    var doc = ast.parse('Foo\n\n---\n\n')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.next, Node.THEMATIC_BREAK)).to.eql(true);
+    done();
+  });
+
   it('should serialize code block', function(done) {
     var doc = ast.parse('```javascript\nvar foo="bar";\n```')
       , obj = Node.serialize(doc);
