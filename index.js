@@ -82,12 +82,6 @@ function deserialize(stream, cb) {
     stream.pipe(lines); 
   }
 
-  //stream
-    //.pipe(new LineStream())
-    //.pipe(new EachStream())
-    //.pipe(new Parser())
-    //.pipe(deserializer);
-
   if(cb) {
     deserializer
       .once('error', cb)
