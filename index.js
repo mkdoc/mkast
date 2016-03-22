@@ -144,10 +144,12 @@ function serialize(node, opts, cb) {
       .once('finish', cb);
   }
 
-  // give callers a chance to listen for events
-  process.nextTick(function() {
-    ast.end(node);
-  })
+  if(node) {
+    // give callers a chance to listen for events
+    process.nextTick(function() {
+      ast.end(node);
+    })
+  }
 
   return serializer;
 }
