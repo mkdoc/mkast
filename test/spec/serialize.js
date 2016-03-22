@@ -166,6 +166,21 @@ describe('serialize:', function() {
     done();
   });
 
+  it('should serialize inlines', function(done) {
+    var doc = ast.parse('`code`_emph_**strong**')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild, Node.CODE)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild.next, Node.EMPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild.next.next, Node.STRONG))
+      .to.eql(true);
+    done();
+  });
+
   it('should serialize code block', function(done) {
     var doc = ast.parse('```javascript\nvar foo="bar";\n```')
       , obj = Node.serialize(doc);
