@@ -178,7 +178,6 @@ module.exports = {
   src: src,
   walk: walk,
   stringify: stringify,
-  walker: require('./lib/node-walker'),
   Node: Node,
   NodeWalker: NodeWalker,
   createDocumentFragment: Node.createDocumentFragment,

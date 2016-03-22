@@ -9,4 +9,12 @@ describe('mkast:', function() {
     done();
   });
 
+
+  it('should walk() with eof false', function(done) {
+    var walker = ast.walk({eof: false});
+    walker.once('finish', done);
+    walker.end(ast.parse('Text'));
+  });
+
+
 });

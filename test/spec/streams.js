@@ -5,7 +5,7 @@ var expect = require('chai').expect
   , ast = require('../../index')
   , Walk = require('../../lib/walk');
 
-describe('mkast:', function() {
+describe('streams:', function() {
 
   it('should serialize and deserialize list w/ callback', function(done) {
     var parser = new Parser()
