@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , ParserStream = require('../../lib/parser');
 
-describe('mkast:', function() {
+describe('parser stream:', function() {
 
   it('should error on bad json', function(done) {
     var parser = new ParserStream();
