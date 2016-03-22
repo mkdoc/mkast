@@ -61,12 +61,7 @@ describe('streams:', function() {
   });
 
   it('should not wrap EOF in document fragment', function(done) {
-    var buffer = ast.parse(
-          '# Title\n\nParagraph with a [link](http://example.com)');
-
     // not easy to assert on this, but triggers a code path
-    // whereby child documents are expanded into the containing owner
-    // document
     function complete() {
       done(); 
     }
