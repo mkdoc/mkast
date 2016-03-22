@@ -54,7 +54,7 @@ function parser(stream, opts, cb) {
 }
 
 /**
- *  Deserialize line-delimited JSON to commonmark AST nodes.
+ *  Deserialize line-delimited JSON to commonmark nodes.
  *
  *  When a callback function is given it is added as a listener for 
  *  the `error` and `eof` events on the deserializer stream.
@@ -89,6 +89,10 @@ function deserialize(stream, cb) {
       .on('eof', function(doc) {
         cb(null, doc); 
       });
+  }
+
+  if(!stream) {
+    return lines;
   }
   return deserializer;
 }

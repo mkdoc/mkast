@@ -7,6 +7,11 @@ var expect = require('chai').expect
 
 describe('streams:', function() {
 
+  it('should return stream with no input', function(done) {
+    expect(ast.deserialize()).to.be.an('object');
+    done();
+  });
+
   it('should serialize and deserialize list w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('* foo\n* bar\n')
