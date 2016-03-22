@@ -21,7 +21,6 @@ describe('mkast:', function() {
     ast.deserialize(ast.serialize(buffer), complete);
   });
 
-
   it('should serialize ast w/ callback', function(done) {
     var parser = new Parser()
       , buffer = parser.parse('# Title\n<? @include file.md ?>');
