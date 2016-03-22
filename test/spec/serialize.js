@@ -4,9 +4,18 @@ var expect = require('chai').expect
 
 describe('mkast:', function() {
 
+  it('should throw error on non-node', function(done) {
+    function fn() {
+      Node.serialize({});
+    }
+    expect(fn).throws(/expects a node instance/i);
+    done();
+  });
+
   it('should serialize paragraph', function(done) {
     var doc = ast.parse('Paragraph\n\n')
       , obj = Node.serialize(doc);
+
     expect(doc).to.be.an('object');
     expect(obj).to.be.an('object');
     expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
