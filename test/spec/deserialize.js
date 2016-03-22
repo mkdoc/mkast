@@ -4,58 +4,58 @@ var expect = require('chai').expect
 
 describe('deserialize:', function() {
 
-  it('should deserialize _file property', function(done) {
+  it('should deserialize file property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'README.md'
       , obj
       , res;
 
-    doc._file = expected;
+    doc.file = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._file).to.eql(expected);
+    expect(res.file).to.eql(expected);
 
     expect(doc).to.eql(res);
     done();
   });
 
-  it('should deserialize _cmd property', function(done) {
+  it('should deserialize cmd property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'pwd'
       , obj
       , res;
 
-    doc._cmd = expected;
+    doc.cmd = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._cmd).to.eql(expected);
+    expect(res.cmd).to.eql(expected);
 
     expect(doc).to.eql(res);
     done();
   });
 
-  it('should deserialize _linkRefs property', function(done) {
+  it('should deserialize linkRefs property', function(done) {
     var doc = ast.parse('Text')
       , expected = true
       , obj
       , res;
 
-    doc._linkRefs = expected;
+    doc.linkRefs = expected;
     obj = Node.serialize(doc);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
     expect(res).to.be.an('object');
     expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
-    expect(res._linkRefs).to.eql(expected);
+    expect(res.linkRefs).to.eql(expected);
 
     expect(doc).to.eql(res);
 
@@ -148,6 +148,26 @@ describe('deserialize:', function() {
     done();
   });
 
+  it('should deserialize html block', function(done) {
+    var doc = ast.parse('<? @pi ?>')
+      , obj
+      , res;
+
+    obj = Node.serialize(doc);
+    res = Node.deserialize(obj);
+
+    expect(doc).to.be.an('object');
+    expect(res).to.be.an('object');
+    expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(res.firstChild, Node.HTML_BLOCK)).to.eql(true);
+    expect(res.firstChild.literal).to.eql('<? @pi ?>');
+
+    expect(doc).to.eql(res);
+
+    done();
+  });
+
+
   it('should deserialize blockquote', function(done) {
     var doc = ast.parse('> Quotation\n\n')
       , obj
@@ -162,6 +182,47 @@ describe('deserialize:', function() {
     expect(Node.is(res.firstChild, Node.BLOCK_QUOTE)).to.eql(true);
     expect(Node.is(res.firstChild.firstChild, Node.PARAGRAPH)).to.eql(true);
     expect(res.firstChild.firstChild.firstChild.literal).to.eql('Quotation');
+
+    expect(doc).to.eql(res);
+
+    done();
+  });
+
+  it('should deserialize thematic break', function(done) {
+    var doc = ast.parse('Foo\n\n---\n\n')
+      , obj
+      , res;
+
+    obj = Node.serialize(doc);
+    res = Node.deserialize(obj);
+
+    expect(doc).to.be.an('object');
+    expect(res).to.be.an('object');
+    expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(res.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(res.firstChild.next, Node.THEMATIC_BREAK)).to.eql(true);
+
+    expect(doc).to.eql(res);
+
+    done();
+  });
+
+  it('should deserialize inlines', function(done) {
+    var doc = ast.parse('`code`_emph_**strong**')
+      , obj
+      , res;
+
+    obj = Node.serialize(doc);
+    res = Node.deserialize(obj);
+
+    expect(doc).to.be.an('object');
+    expect(res).to.be.an('object');
+    expect(Node.is(res, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(res.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(res.firstChild.firstChild, Node.CODE)).to.eql(true);
+    expect(Node.is(res.firstChild.firstChild.next, Node.EMPH)).to.eql(true);
+    expect(Node.is(res.firstChild.firstChild.next.next, Node.STRONG))
+      .to.eql(true);
 
     expect(doc).to.eql(res);
 

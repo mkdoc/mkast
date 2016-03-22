@@ -9,12 +9,6 @@ describe('node:', function() {
     done();
   });
 
-  it('should return is of type (_type)', function(done) {
-    var node = {_type: Node.DOCUMENT};
-    expect(Node.is(node, Node.DOCUMENT)).to.eql(true);
-    done();
-  });
-
   it('should create default document with no arguments', function(done) {
     var node = Node.createDocument();
     expect(node.type).to.eql(Node.DOCUMENT);

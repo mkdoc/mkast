@@ -4,11 +4,8 @@ var expect = require('chai').expect
 
 describe('serialize:', function() {
 
-  it('should throw error on non-node', function(done) {
-    function fn() {
-      Node.serialize({});
-    }
-    expect(fn).throws(/expects a node instance/i);
+  it('should return value on non-node', function(done) {
+    expect(Node.serialize({})).to.eql({});
     done();
   });
 
@@ -25,12 +22,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _file property', function(done) {
+  it('should serialize file property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'README.md'
       , obj;
 
-    doc._file = expected;
+    doc.file = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
@@ -40,12 +37,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _cmd property', function(done) {
+  it('should serialize cmd property', function(done) {
     var doc = ast.parse('Text')
       , expected = 'pwd'
       , obj;
 
-    doc._cmd = expected;
+    doc.cmd = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
@@ -55,12 +52,12 @@ describe('serialize:', function() {
     done();
   });
 
-  it('should serialize _linkRefs property', function(done) {
+  it('should serialize linkRefs property', function(done) {
     var doc = ast.parse('Text')
       , expected = true
       , obj;
 
-    doc._linkRefs = expected;
+    doc.linkRefs = expected;
     obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');
@@ -129,6 +126,18 @@ describe('serialize:', function() {
     done();
   });
 
+  it('should serialize html block', function(done) {
+    var doc = ast.parse('<? @pi ?>')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.HTML_BLOCK)).to.eql(true);
+    expect(obj.firstChild.literal).to.eql('<? @pi ?>');
+    done();
+  });
+
   it('should serialize blockquote', function(done) {
     var doc = ast.parse('> Quotation\n\n')
       , obj = Node.serialize(doc);
@@ -139,6 +148,33 @@ describe('serialize:', function() {
     expect(Node.is(obj.firstChild, Node.BLOCK_QUOTE)).to.eql(true);
     expect(Node.is(obj.firstChild.firstChild, Node.PARAGRAPH)).to.eql(true);
     expect(obj.firstChild.firstChild.firstChild.literal).to.eql('Quotation');
+    done();
+  });
+
+  it('should serialize thematic break', function(done) {
+    var doc = ast.parse('Foo\n\n---\n\n')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.next, Node.THEMATIC_BREAK)).to.eql(true);
+    done();
+  });
+
+  it('should serialize inlines', function(done) {
+    var doc = ast.parse('`code`_emph_**strong**')
+      , obj = Node.serialize(doc);
+
+    expect(doc).to.be.an('object');
+    expect(obj).to.be.an('object');
+    expect(Node.is(obj, Node.DOCUMENT)).to.eql(true);
+    expect(Node.is(obj.firstChild, Node.PARAGRAPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild, Node.CODE)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild.next, Node.EMPH)).to.eql(true);
+    expect(Node.is(obj.firstChild.firstChild.next.next, Node.STRONG))
+      .to.eql(true);
     done();
   });
 

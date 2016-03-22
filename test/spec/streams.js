@@ -5,7 +5,12 @@ var expect = require('chai').expect
   , ast = require('../../index')
   , Walk = require('../../lib/walk');
 
-describe('mkast:', function() {
+describe('streams:', function() {
+
+  it('should return stream with no input', function(done) {
+    expect(ast.deserialize()).to.be.an('object');
+    done();
+  });
 
   it('should serialize and deserialize list w/ callback', function(done) {
     var parser = new Parser()
@@ -20,7 +25,6 @@ describe('mkast:', function() {
 
     ast.deserialize(ast.serialize(buffer), complete);
   });
-
 
   it('should serialize ast w/ callback', function(done) {
     var parser = new Parser()

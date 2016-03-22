@@ -54,7 +54,7 @@ function parser(stream, opts, cb) {
 }
 
 /**
- *  Deserialize line-delimited JSON to commonmark AST nodes.
+ *  Deserialize line-delimited JSON to commonmark nodes.
  *
  *  When a callback function is given it is added as a listener for 
  *  the `error` and `eof` events on the deserializer stream.
@@ -89,6 +89,10 @@ function deserialize(stream, cb) {
       .on('eof', function(doc) {
         cb(null, doc); 
       });
+  }
+
+  if(!stream) {
+    return lines;
   }
   return deserializer;
 }
@@ -140,10 +144,12 @@ function serialize(node, opts, cb) {
       .once('finish', cb);
   }
 
-  // give callers a chance to listen for events
-  process.nextTick(function() {
-    ast.end(node);
-  })
+  if(node) {
+    // give callers a chance to listen for events
+    process.nextTick(function() {
+      ast.end(node);
+    })
+  }
 
   return serializer;
 }
@@ -178,7 +184,6 @@ module.exports = {
   src: src,
   walk: walk,
   stringify: stringify,
-  walker: require('./lib/node-walker'),
   Node: Node,
   NodeWalker: NodeWalker,
   createDocumentFragment: Node.createDocumentFragment,

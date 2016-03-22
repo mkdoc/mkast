@@ -2,7 +2,7 @@ var expect = require('chai').expect
   , ast = require('../../index')
   , Node = require('../../lib/node');
 
-describe('mkast:', function() {
+describe('parse:', function() {
 
   it('should return ast from parse()', function(done) {
     var doc = ast.parse('Text.')

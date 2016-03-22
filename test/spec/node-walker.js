@@ -5,7 +5,7 @@ var expect = require('chai').expect
   , walk = NodeWalker.walk
   , collect = NodeWalker.collect;
 
-describe('node-walker:', function() {
+describe('node walker:', function() {
 
   it('should walk all child nodes', function(done) {
     var doc = ast.parse('> Quotation')
