@@ -3,6 +3,18 @@ var expect = require('chai').expect
 
 describe('mkast:', function() {
 
+  it('should return is of type (type)', function(done) {
+    var node = Node.createDocument();
+    expect(Node.is(node, Node.DOCUMENT)).to.eql(true);
+    done();
+  });
+
+  it('should return is of type (_type)', function(done) {
+    var node = {_type: Node.DOCUMENT};
+    expect(Node.is(node, Node.DOCUMENT)).to.eql(true);
+    done();
+  });
+
   it('should create default document with no arguments', function(done) {
     var node = Node.createDocument();
     expect(node.type).to.eql(Node.DOCUMENT);
