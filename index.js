@@ -189,5 +189,6 @@ module.exports = {
   NodeWalker: NodeWalker,
   createDocumentFragment: Node.createDocumentFragment,
   commonmark: commonmark,
+  Renderer: require('commonmark/lib/render/renderer'),
   Parser: commonmark.Parser
 }
