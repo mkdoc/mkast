@@ -1,4 +1,5 @@
 var through = require('through3')
+  , commonmark = require('commonmark')
   , LineStream = require('stream-lines')
   , Walk = require('./lib/walk')
   , Node = require('./lib/node')
@@ -187,5 +188,6 @@ module.exports = {
   Node: Node,
   NodeWalker: NodeWalker,
   createDocumentFragment: Node.createDocumentFragment,
-  Parser: require('commonmark').Parser
+  commonmark: commonmark,
+  Parser: commonmark.Parser
 }
