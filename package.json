@@ -20,7 +20,7 @@
     "ast"
   ],
   "dependencies": {
-    "commonmark": "tmpfs/commonmark.js",
+    "commonmark": "tmpfs/commonmark.js#refmap",
     "stream-lines": "~1.2.0",
     "through3": "~1.1.5"
   },
