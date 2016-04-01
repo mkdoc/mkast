@@ -169,6 +169,12 @@ function stringify(opts) {
   return new Serialize(opts);
 }
 
+function convert(opts) {
+  opts = opts || {};
+  opts.stringify = false;
+  return new Serialize(opts);
+}
+
 function src(markdown, opts) {
   var walk = new Walk(opts);
   process.nextTick(function() {
@@ -178,6 +184,7 @@ function src(markdown, opts) {
 }
 
 module.exports = {
+  convert: convert,
   serialize: serialize,
   deserialize: deserialize,
   parser: parser,
