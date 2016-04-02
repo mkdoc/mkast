@@ -8,6 +8,10 @@ Transforms [commonmark][] nodes to and from JSON for piping between processes.
 
 <? @include {=readme} install.md ?>
 
+***
+<!-- @toc -->
+***
+
 ## Usage
 
 Serialize [commonmark][] nodes to line-delimited JSON:
