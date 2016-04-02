@@ -11,7 +11,7 @@ describe('deserialize:', function() {
       , res;
 
     doc.file = expected;
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -30,7 +30,7 @@ describe('deserialize:', function() {
       , res;
 
     doc.cmd = expected;
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -49,7 +49,7 @@ describe('deserialize:', function() {
       , res;
 
     doc.linkRefs = expected;
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -72,7 +72,7 @@ describe('deserialize:', function() {
 
     doc._onEnter = enter;
     doc._onExit = exit;
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -92,7 +92,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -113,7 +113,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -133,7 +133,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -153,7 +153,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -173,7 +173,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -193,7 +193,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -212,7 +212,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -235,7 +235,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -254,7 +254,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
@@ -281,7 +281,7 @@ describe('deserialize:', function() {
     expect(doc).to.be.an('object');
     doc.firstChild.firstChild._linkType = 'ref';
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(res).to.be.an('object');
@@ -300,7 +300,7 @@ describe('deserialize:', function() {
       , obj
       , res;
 
-    obj = Node.serialize(doc);
+    obj = Node.serialize(doc, true);
     res = Node.deserialize(obj);
 
     expect(doc).to.be.an('object');
