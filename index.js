@@ -55,6 +55,16 @@ function parser(stream, opts, cb) {
 }
 
 /**
+ *  Deserialize to full nodes but do not collate into a single document.
+ *
+ *  @function deserializer
+ */
+function deserializer() {
+  var Converter = require('./lib/converter');
+  return new Converter();
+}
+
+/**
  *  Deserialize line-delimited JSON to commonmark nodes.
  *
  *  When a callback function is given it is added as a listener for 
@@ -187,6 +197,7 @@ module.exports = {
   convert: convert,
   serialize: serialize,
   deserialize: deserialize,
+  deserializer: deserializer,
   parser: parser,
   parse: parse,
   src: src,
