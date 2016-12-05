@@ -164,7 +164,7 @@ describe('serialize:', function() {
   });
 
   it('should serialize inlines', function(done) {
-    var doc = ast.parse('`code`_emph_**strong**')
+    var doc = ast.parse('`code`*emph***strong**')
       , obj = Node.serialize(doc);
 
     expect(doc).to.be.an('object');

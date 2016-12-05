@@ -208,7 +208,7 @@ describe('deserialize:', function() {
   });
 
   it('should deserialize inlines', function(done) {
-    var doc = ast.parse('`code`_emph_**strong**')
+    var doc = ast.parse('`code`*emph***strong**')
       , obj
       , res;
 
